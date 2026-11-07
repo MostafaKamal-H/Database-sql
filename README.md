@@ -1,8 +1,12 @@
 # Database Concept 
 Database: collection of related data 
+
 DBMS : Database Management System,It is the software that stores, organizes, and controls a database.
 Examples: MySQL, PostgreSQL, SQL Server
+
 Database System : The DBMS Software together with the Data Itself 
+
+
 # Main Concepts
                  Database System
                          |
@@ -21,6 +25,10 @@ Database System : The DBMS Software together with the Data Itself
                             Relationships between tables
                             Indexes.
             Stored Data 
+
+
+
+            
 # Database Advantages 
 - Less data redundancy
 - Better data consistency
