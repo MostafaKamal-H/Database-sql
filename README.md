@@ -62,274 +62,74 @@ Identify Participation :   like Total Participation or partial
 
 
 
-# System Requirements Specification (SRS)
-## Project: Retail Store Management System
-
-**Client:** Retail Store  
-**Department:** Sales & Operations  
-**Prepared By:** System Analysis Team  
-**Document Version:** 1.0
-
----
-
-## 1. Project Overview
-
-The client operates a retail store that sells different types of products to registered customers.
-
-The company requires a centralized transactional database to manage its customers, employees, products, and daily sales operations.
-
-The system must maintain accurate records of every sales transaction and provide management with reliable business information.
-
-The first release will focus on the core sales operations of a single physical store.
-
-## 2. Data Requirements
-
-The following entities and attributes have been identified by the System Analysis Team.
-
-### 2.1 Customer
-
-| Attribute | Description |
-|---|---|
-| Customer_ID | Unique customer identification number |
-| First_Name | Customer's first name |
-| Last_Name | Customer's last name |
-| Phone_Number | Customer's contact number |
-| Email | Customer's email address |
-| Registration_Date | Date the customer registered |
-
-**Constraints:**
-- Customer_ID is unique.
-- Phone_Number must be unique.
-- Email is optional but must be unique when provided.
-- First_Name, Last_Name, and Phone_Number are required.
+# Business Requirements Document (BRD)
+## Project: Order Management System
 
-### 2.2 Employee
+### 1. Project Overview
 
-| Attribute | Description |
-|---|---|
-| Employee_ID | Unique employee identification number |
-| First_Name | Employee's first name |
-| Last_Name | Employee's last name |
-| Email | Employee's work email |
-| Phone_Number | Employee's contact number |
-| Job_Title | Employee's job position |
-| Hire_Date | Employee's hiring date |
+The company requires a database system to manage customers, products, and customer orders.
 
-**Constraints:**
-- Employee_ID is unique.
-- Email must be unique.
-- All attributes are required.
+The system must allow customers to place orders containing different products. The company needs to maintain order information and track the quantities of products included in each order.
 
-### 2.3 Category
+### 2. Customer Management
 
-| Attribute | Description |
-|---|---|
-| Category_ID | Unique category identification number |
-| Category_Name | Name of the product category |
-| Description | Category description |
+The system must maintain customer records containing:
+- Customer ID.
+- Customer Name.
+- Customer Email.
 
-**Constraints:**
-- Category_ID is unique.
-- Category_Name must be unique.
-- Description is optional.
+Each registered customer must have a unique identifier.
 
-### 2.4 Product
+Customers must be registered in the system before placing orders.
 
-| Attribute | Description |
-|---|---|
-| Product_ID | Unique product identification number |
-| SKU | Product stock keeping unit |
-| Product_Name | Product name |
-| Description | Product description |
-| Unit_Price | Current selling price |
-| Stock_Quantity | Available quantity |
-| Product_Status | Product availability status |
-| Created_Date | Date the product was added |
+A customer may register without placing any orders.
 
-**Constraints:**
-- Product_ID is unique.
-- SKU must be unique.
-- Unit_Price must be greater than zero.
-- Stock_Quantity cannot be negative.
-- Product_Status accepts Active or Inactive.
-- Description is optional.
+### 3. Product Management
 
-### 2.5 Sales_Order
+The system must maintain a catalog of available products.
 
-| Attribute | Description |
-|---|---|
-| Order_ID | Unique sales order identification number |
-| Order_Date | Date and time the order was created |
-| Order_Status | Current order status |
-| Total_Amount | Total value of the order |
+Each product record must contain:
+- Product ID.
+- Product Name.
+- Product Price.
 
-**Constraints:**
-- Order_ID is unique.
-- Order_Date is required.
-- Order_Status accepts Draft, Completed, or Cancelled.
-- Total_Amount is calculated from the order details.
-- A completed order cannot be modified through normal operations.
+Each product must have a unique identifier.
 
-### 2.6 Order_Item
+Products can exist in the system even if they have never been included in an order.
 
-| Attribute | Description |
-|---|---|
-| Order_Item_ID | Unique order item identification number |
-| Quantity | Number of units purchased |
-| Unit_Price | Selling price per unit at the time of sale |
-| Subtotal | Total value of this order item |
+### 4. Order Management
 
-**Constraints:**
-- Order_Item_ID is unique.
-- Quantity must be greater than zero.
-- Unit_Price must be greater than zero.
-- Subtotal = Quantity × Unit_Price.
-- Historical Unit_Price must not change when the current product price changes.
+Whenever a customer makes a purchase, the system must create an order.
 
----
+Each order must maintain its creation date.
 
-## 3. Business Requirements and Operational Rules
+Every order must be associated with the customer who placed it.
 
-### BR-01: Customer Registration
-The system must allow employees to register new customers and maintain their information.
+An order must contain at least one order item.
 
-Customers can be registered even if they have never made a purchase.
+A customer can place multiple orders over time.
 
-A registered customer may return to the store and make purchases on different occasions.
+### 5. Order Items Management
 
-### BR-02: Employee Management
-The system must maintain employee records.
+An order can contain multiple products.
 
-Employees are responsible for processing customer sales.
+For every product included in an order, the system must record the purchased quantity.
 
-An employee may process several sales transactions during their employment.
+The same product can be included in different orders.
 
-Employees may exist in the system before processing their first transaction.
+Each order item must refer to an existing order and an existing product.
 
-### BR-03: Product Categorization
-The store organizes its product catalog into categories.
+### 6. Business Constraints
 
-Every product must be assigned to a category before it becomes available for sale.
+- Customers can exist without placing orders.
+- Orders cannot exist without a registered customer.
+- Orders must contain at least one order item.
+- Products can exist without being included in orders.
+- Every order item must belong to an order and refer to a product.
+- Product prices must be greater than zero.
+- Purchased quantities must be greater than zero.
 
-A category can be registered before any products are assigned to it.
+**End of Business Requirements Document.**
 
-### BR-04: Product Management
-The system must allow employees to add and update product information.
-
-A product must belong to one category.
-
-Products can be maintained in the catalog even if they have never been sold.
-
-Only active products can be added to new sales transactions.
-
-### BR-05: Sales Order Creation
-When a customer makes a purchase, an employee creates a sales order.
-
-Each sales order must identify:
-- The customer making the purchase.
-- The employee processing the transaction.
-- The date and time of the transaction.
-- The current order status.
-- The total order amount.
-
-An order cannot be created without identifying the customer and the responsible employee.
-
-A customer may make multiple sales transactions.
-
-An employee may process multiple sales transactions.
-
-### BR-06: Sales Order Details
-A sales order may contain multiple products.
-
-For every product added to an order, the system must record its quantity and selling price at the time of purchase.
-
-A product may appear in sales transactions belonging to different customers.
-
-The same product must not appear as two separate lines within the same order. Its quantity must be updated on the existing line.
-
-A draft order may exist before any products are added.
-
-However, an order cannot be completed unless it contains at least one product.
-
-### BR-07: Order Calculation
-The system must calculate the subtotal of every order item.
-
-The total order amount must equal the sum of all order item subtotals.
-
-Product prices recorded in completed sales transactions must remain unchanged for historical reporting purposes.
-
-### BR-08: Inventory Management
-The store must maintain the available stock quantity for every product.
-
-When an order is completed, the system must deduct the quantities sold from the corresponding product stock.
-
-Before completing an order, the system must verify that sufficient stock is available for all included products.
-
-An order must not be completed if any product has insufficient stock.
-
-Draft and cancelled orders must not reduce available stock.
-
-The completion process and stock deductions must be executed consistently, so that a failed operation does not leave inventory partially updated.
-
-### BR-09: Historical Records
-Completed and cancelled orders must remain available for historical reporting.
-
-Deleting a customer, employee, product, or category must not cause the loss of historical sales information.
-
----
-
-## 4. Sales Process Scenario
-
-The following scenario describes a typical business operation:
-
-1. A customer registers with the store.
-2. A sales employee logs into the system.
-3. The customer selects three different products.
-4. The employee creates a sales order under the customer's record.
-5. The employee adds the selected products and their quantities.
-6. The system calculates individual subtotals.
-7. The system calculates the final order amount.
-8. The system checks available inventory.
-9. The order is completed.
-10. The system updates the stock quantities.
-
----
-
-## 5. Project Scope
-
-**Included:**
-- Customer Management.
-- Employee Management.
-- Product Management.
-- Category Management.
-- Sales Order Management.
-- Order Items Management.
-- Basic Inventory Tracking.
-
-**Excluded from the first release:**
-- Multiple branches.
-- Supplier Management.
-- Purchasing Management.
-- Payment Processing.
-- Returns and Refunds.
-- Discounts and Coupons.
-- Delivery Management.
-
----
-
-## 6. Expected Deliverables
-
-The Database Designer is responsible for:
-
-1. Conceptual ERD.
-2. Logical ERD.
-3. Relational Mapping.
-4. Database Creation Scripts (DDL).
-5. Data Manipulation Scripts (DML).
-6. Business SQL Queries.
-7. Database Testing.
-
-**End of Document.**
-
-
+[TASK 2.drawio](https://github.com/user-attachments/files/34516587/TASK.2.drawio)
 
