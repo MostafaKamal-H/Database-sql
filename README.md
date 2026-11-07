@@ -50,9 +50,9 @@ Database System : The DBMS Software together with the Data Itself
 Entity Relationship Modeling : Identifies information required by the business by displaying the relevant entities and relationships between them
 
 # How to Analyzed the Requirements
-Identify Entity : هو اي شئ اي فكره اي شخص او فكره محتاج اخزن معلومات او سمات 
+Identify Entity   
 
-Identify Attributes :  COLUMN صفه او خاصيه بتوصف الكيان و بتظهر ك
+Identify Attributes 
 
 Identify Relationship:  belong to , study    مثال   entities تحديد الافعال الي بتربط بين ال
 
