@@ -131,7 +131,7 @@ Each order item must refer to an existing order and an existing product.
 
 **End of Business Requirements Document.**
 
-[ERD diagram](https://github.com/user-attachments/files/34516645/TASK.2.drawio)
+[ERD diagram](https://github.com/user-attachments/files/34516645/erd.drawio)
 <mxfile host="Electron">
   <diagram name="Page-1" id="72zJpq0JiTk41Ku353fI">
     <mxGraphModel dx="1709" dy="723" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
