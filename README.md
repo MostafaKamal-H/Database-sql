@@ -43,3 +43,11 @@ Database System : The DBMS Software together with the Data Itself
                                  |
                         physical schema : Internal Schema    ( Indexes, طريقه ضغط البيانلت ,ترتيب البيانات)
                      
+
+
+# Database Design 
+
+Entity Relationship Modeling : Identifies information required by the business by displaying the relevant entities and relationships between them
+
+Entity:(الكيان)
+الـ Entity هو أي حاجة (شخص، مكان، شيء، أو فكرة) في البيزنس محتاجين نخزّن عنها بيانات. وبيتحول في الآخر لـ جدول (Table) في الـ database.
