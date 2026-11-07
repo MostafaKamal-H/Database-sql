@@ -401,3 +401,29 @@ Each physical copy must contain the following information:
     </mxGraphModel>
   </diagram>
 </mxfile>
+
+
+# Mapping 
+1. Members
+
+PK = Member_ID
+
+Members(Member_ID, Email, Phone_Number, First_Name, Last_Name, Registration_Date)
+
+2. Books
+
+PK = Book_ID
+
+Books(Book_ID, Title, ISBN, Author, Publication_Year, Available_Copies)
+
+3. Borrowing
+
+PK = Borrowing_ID · FK = Member_ID
+
+Borrowing(Borrowing_ID, Member_ID, Due_Date, Borrowing_Date, Return_Date)
+
+4. Book_Copies
+
+PK = Copy_ID · FKs = Book_ID, Borrowing_ID
+
+Book_Copies(Copy_ID, Book_ID, Borrowing_ID, Copy_Status, Acquisition_Date)
