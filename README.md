@@ -63,7 +63,6 @@ Identify Participation :   like Total Participation or partial
 
 
 # Business Requirements Document (BRD)
-# Business Requirements Document (BRD)
 ## Project: Library Management System
 
 **Project Type:** Transactional Database (OLTP)  
