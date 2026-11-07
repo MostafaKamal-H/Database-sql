@@ -51,14 +51,17 @@ Entity Relationship Modeling : Identifies information required by the business b
 
 # How to Analyzed the Requirements
 Identify Entity : هو اي شئ اي فكره اي شخص او فكره محتاج اخزن معلومات او سمات 
+
 Identify Attributes :  COLUMN صفه او خاصيه بتوصف الكيان و بتظهر ك
+
 Identify Relationship:  belong to , study    مثال   entities تحديد الافعال الي بتربط بين ال
+
 Identify Cardinality  :   like 1:m M:n 1:1 
+
 Identify Participation :   like Total Participation or partial
 
 
 
-# Business Requirements
 # System Requirements Specification (SRS)
 ## Project: Retail Store Management System
 
