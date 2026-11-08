@@ -7,6 +7,7 @@ A database is an organized collection of data that can be easily stored, accesse
 Example:
 
 A university database stores information about students, courses, instructors, and grades.
+
 Q2. What is a DBMS?
 Answer:
 
@@ -15,6 +16,7 @@ A DBMS stands for Database Management System.
 It is software that allows users to create, store, retrieve, update, and manage data in a database.
 
 Examples: SQL Server, MySQL, Oracle, and PostgreSQL.
+
 Q3. What is the difference between DBMS and RDBMS?
 Answer:
 
@@ -25,6 +27,7 @@ An RDBMS is a type of DBMS that organizes data into tables and establishes relat
 Example:
 
 SQL Server is an RDBMS because it stores data in related tables.
+
 Q4. Why do we use a DBMS instead of storing data in files?
 Answer:
 
@@ -35,6 +38,7 @@ It also supports multiple users accessing and modifying data simultaneously.
 Example:
 
 Instead of storing customer information in multiple Excel files, we can store it in related database tables.
+
 Q5. What is a Database Schema?
 Answer:
 
@@ -45,6 +49,7 @@ It defines tables, columns, data types, relationships, and constraints.
 Example:
 
 An Employee table may contain EmployeeID, FirstName, Salary, and DepartmentID.
+
 Q6. What is the difference between Schema and Database Instance?
 Answer:
 
@@ -55,6 +60,7 @@ Example:
 The Employee table structure is part of the schema.
 
 The employees stored inside that table represent the database instance.
+
 Q7. What are Data Redundancy and Data Inconsistency?
 Answer:
 
@@ -65,12 +71,14 @@ Data inconsistency happens when duplicated information has different values in d
 Example:
 
 If a customer's address is stored in five different records, updating only four of them creates inconsistent data.
+
 Q8. What is Data Integrity?
 Answer:
 
 Data integrity means maintaining accurate, valid, and consistent data throughout its lifecycle.
 
 We can enforce data integrity using constraints such as Primary Key, Foreign Key, Unique, and Check constraints.
+
 Q9. What is an Entity Relationship Model?
 Answer:
 
@@ -81,6 +89,7 @@ It helps us understand the database requirements before creating actual tables.
 Example:
 
 A university system may contain Students, Courses, and Departments.
+
 Q10. What is Cardinality?
 Answer:
 
@@ -96,7 +105,9 @@ One Department can have many Employees. This is a One-to-Many relationship.
 
 systemdesign.academy+1
 
+
 Section 2 — Keys and Constraints
+
 دي من أهم أجزاء الانترفيو، ولازم تكون قادر تشرحها بمثال من تصميم قاعدة بيانات، مش مجرد تعريف محفوظ.
 Q11. What is a Primary Key?
 Answer:
@@ -108,6 +119,7 @@ It cannot contain NULL values or duplicate values.
 Example:
 
 EmployeeID in an Employee table.
+
 Q12. What is a Foreign Key?
 Answer:
 
@@ -118,18 +130,21 @@ It references a Primary Key or a suitable Unique Key in another table and mainta
 Example:
 
 CustomerID in the Orders table references CustomerID in the Customers table.
+
 Q13. What is the difference between Primary Key and Foreign Key?
 Answer:
 
 A Primary Key uniquely identifies each row within its own table.
 
 A Foreign Key references a key in another table to establish a relationship between tables.
+
 Q14. What is a UNIQUE Constraint?
 Answer:
 
 A UNIQUE constraint ensures that duplicate values cannot be inserted into a column or combination of columns.
 
 Unlike a Primary Key, a table can have multiple UNIQUE constraints.
+
 Q15. What is the difference between PRIMARY KEY and UNIQUE?
 Answer:
 
@@ -138,6 +153,7 @@ Both enforce uniqueness.
 However, a table can have only one Primary Key, while it can have multiple UNIQUE constraints.
 
 A Primary Key cannot contain NULL values.
+
 Q16. What is a Composite Primary Key?
 Answer:
 
@@ -148,6 +164,7 @@ Example:
 In an Enrollment table, we can use StudentID and CourseID together as a Composite Primary Key.
 
 Neither column necessarily needs to be unique by itself, but their combination must be unique.
+
 Q17. What are Candidate Key and Super Key?
 Answer:
 
@@ -169,6 +186,7 @@ CHECK (Salary > 0)
 
 
 This means Salary must have a value greater than zero.
+
 Q19. What is a DEFAULT Constraint?
 Answer:
 
@@ -179,6 +197,7 @@ StockQuantity INT DEFAULT 0
 
 
 When an INSERT statement omits StockQuantity, SQL Server uses zero, provided the column is not explicitly given another value.
+
 Q20. What is the purpose of a Foreign Key?
 Answer:
 
@@ -189,6 +208,7 @@ It prevents inserting a reference to a parent record that does not exist, and no
 Microsoft Learn+1
 
 Section 3 — Normalization and Database Design
+
 دي منطقة مهمة جدًا بالنسبالك؛ لأنها بتختبر هل تقدر تصمم Database صح، مش بس تكتب SQL.
 Q21. What is Database Normalization?
 Answer:
@@ -205,6 +225,7 @@ There are three main types:
 1. Insertion Anomaly: We cannot insert certain information without inserting unrelated information.
 2. Update Anomaly: We need to update the same information in multiple places.
 3. Deletion Anomaly: Deleting one record accidentally removes other important information.
+4. 
 Q23. What is First Normal Form (1NF)?
 Answer:
 
@@ -217,6 +238,7 @@ StudentID	PhoneNumbers
 1	0100, 0110
 
 Correct: Store phone numbers as separate records in an appropriate related table.
+
 Q24. What is Second Normal Form (2NF)?
 Answer:
 
@@ -236,6 +258,7 @@ The Primary Key is (StudentID, CourseID).
 StudentName depends only on StudentID, and CourseName depends only on CourseID.
 
 We should move these attributes to their respective tables.
+
 Q25. What is Third Normal Form (3NF)?
 Answer:
 
@@ -251,6 +274,7 @@ Employee(EmployeeID, DepartmentID, DepartmentName)
 DepartmentName depends on DepartmentID, not directly on EmployeeID.
 
 We should separate Department information into another table.
+
 Q26. What is a Functional Dependency?
 Answer:
 
@@ -263,6 +287,7 @@ EmployeeID → EmployeeName
 This means that EmployeeID determines the EmployeeName.
 
 If two records have the same EmployeeID, they must have the same EmployeeName.
+
 Q27. What is Denormalization?
 Answer:
 
@@ -279,6 +304,7 @@ Interview note: Do not say denormalization is always better. It trades some stor
 Asuraa+1
 
 Section 4 — SQL Language and Commands
+
 Q28. What is SQL?
 Answer:
 
@@ -291,6 +317,7 @@ Answer:
 SQL is a query language used to interact with relational databases.
 
 SQL Server is a Relational Database Management System developed by Microsoft that uses T-SQL, Microsoft's extension of SQL.
+
 Q30. What are the main SQL Command Categories?
 Answer:
 
@@ -302,6 +329,7 @@ DCL	Data Control Language	GRANT, REVOKE
 TCL	Transaction Control Language	COMMIT, ROLLBACK
 
 Some learning materials classify SELECT separately as DQL (Data Query Language), while other classifications include it in DML.
+
 Q31. What is the difference between DELETE, TRUNCATE, and DROP?
 Answer:
 - DELETE removes selected rows from a table and supports a WHERE condition.
@@ -314,6 +342,7 @@ Important SQL Server details:
 - TRUNCATE cannot be used on a table referenced by a Foreign Key constraint.
 
 Microsoft Learn+2
+
 Q32. What is the difference between CHAR and VARCHAR?
 Answer:
 
@@ -325,6 +354,7 @@ VARCHAR(10)
 
 
 CHAR uses a fixed declared length, while VARCHAR stores variable-length character data up to the specified limit.
+
 Q33. What is IDENTITY in SQL Server?
 Answer:
 
@@ -340,6 +370,7 @@ EmployeeID INT IDENTITY(1,1)
 The values normally start at 1 and increase by 1.
 
 Important: IDENTITY does not guarantee uniqueness by itself. We need a Primary Key or UNIQUE constraint when uniqueness is required.
+
 Q34. What is the difference between WHERE and HAVING?
 Answer:
 
@@ -356,6 +387,7 @@ HAVING AVG(Salary) > 5000;
 
 
 This query first filters employees, then groups them by department, and finally filters the groups based on their average salary.
+
 Q35. What is NULL in SQL?
 Answer:
 
@@ -372,6 +404,7 @@ WHERE Salary IS NULL;
 
 
 We should not use Salary = NULL to test for NULL.
+
 Q36. What is the difference between COUNT(*) and COUNT(ColumnName)?
 Answer:
 
@@ -389,6 +422,7 @@ systemdesign.academy+2
 
 Section 5 — SQL Joins and Query Concepts
 Study after WHERE and GROUP BY
+
 Q37. What is a JOIN in SQL?
 Answer:
 
@@ -397,6 +431,7 @@ A JOIN is used to combine data from two or more tables based on a related column
 Example:
 
 We can JOIN Customers and Orders using CustomerID to retrieve customer information with their orders.
+
 Q38. What are the different types of JOINs?
 Answer:
 
@@ -409,6 +444,7 @@ FULL OUTER JOIN	Returns matching and non-matching rows from both tables.
 CROSS JOIN	Returns every possible combination of rows.
 SELF JOIN	Joins a table with itself.
 
+
 Q39. What is the difference between INNER JOIN and LEFT JOIN?
 Answer:
 
@@ -417,6 +453,7 @@ INNER JOIN returns only records that have matching values in both tables.
 LEFT JOIN returns all records from the left table, even if there is no matching record in the right table.
 
 When no match exists, the right-side columns contain NULL.
+
 Q40. What is GROUP BY?
 Answer:
 
@@ -427,6 +464,7 @@ It is commonly used with aggregate functions such as COUNT, SUM, AVG, MIN, and M
 Example:
 
 We can calculate the total salary for each department using GROUP BY.
+
 Q41. What are Aggregate Functions?
 Answer:
 
@@ -513,6 +551,7 @@ A clustered index defines how the table's data rows are organized by the index k
 A non-clustered index is a separate structure that stores indexed values and row references.
 
 A table can have only one clustered index, but it can have multiple non-clustered indexes.
+
 Q50. What is the difference between OLTP and OLAP?
 Answer:
 
