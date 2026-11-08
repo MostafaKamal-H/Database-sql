@@ -1,429 +1,529 @@
-# Database Concept 
-Database: collection of related data 
+Database Fundamentals
+Q1. What is a Database?
+Answer:
 
-DBMS : Database Management System,It is the software that stores, organizes, and controls a database.
-Examples: MySQL, PostgreSQL, SQL Server
+A database is an organized collection of data that can be easily stored, accessed, managed, and updated.
 
-Database System : The DBMS Software together with the Data Itself 
+Example:
 
+A university database stores information about students, courses, instructors, and grades.
+Q2. What is a DBMS?
+Answer:
 
-# Main Concepts
-                 Database System
-                         |
-                       users
-                         |
-                Application Program
-                        |
-      DBMS  .1 Software to proccess queries
-            .2 Software to stored data 
-                         |
-             Stored DB Meta Data : Metadata means “data about data”. It describes the data
-                            Table names
-                            Column names
-                            Data types 
-                            Constraints 
-                            Relationships between tables
-                            Indexes.
-            Stored Data 
+A DBMS stands for Database Management System.
 
+It is software that allows users to create, store, retrieve, update, and manage data in a database.
 
+Examples: SQL Server, MySQL, Oracle, and PostgreSQL.
+Q3. What is the difference between DBMS and RDBMS?
+Answer:
 
-            
-# Database Advantages 
-- Less data redundancy
-- Better data consistency
-- Data integrity
-- Backup and recovery
-- Data independence .
-# Database Architecture 
-                         External schema : ده  الي المستخدم بيشوفه  بمعني المستخدم محتاج يشوف اي
-                                 |
-                        conceptual schema :   (المستوى المنطقي) relations , Tables, constrains ,   
-                                              ده هو الـ ERD اللي بتحوّله لجداول (Logical Design
-                                 |
-                        physical schema : Internal Schema    ( Indexes, طريقه ضغط البيانلت ,ترتيب البيانات)
-                     
+A DBMS is a general system used to manage data.
 
+An RDBMS is a type of DBMS that organizes data into tables and establishes relationships between them using keys.
 
-# Database Design 
+Example:
 
-Entity Relationship Modeling : Identifies information required by the business by displaying the relevant entities and relationships between them
+SQL Server is an RDBMS because it stores data in related tables.
+Q4. Why do we use a DBMS instead of storing data in files?
+Answer:
 
-# How to Analyzed the Requirements
-Identify Entity   
+A DBMS provides better data management, security, consistency, and data integrity.
 
-Identify Attributes 
+It also supports multiple users accessing and modifying data simultaneously.
 
-Identify Relationship:  belong to , study    مثال   entities تحديد الافعال الي بتربط بين ال
+Example:
 
-Identify Cardinality  :   like 1:m M:n 1:1 
+Instead of storing customer information in multiple Excel files, we can store it in related database tables.
+Q5. What is a Database Schema?
+Answer:
 
-Identify Participation :   like Total Participation or partial
+A database schema is the logical structure of a database.
 
+It defines tables, columns, data types, relationships, and constraints.
 
+Example:
 
-# Business Requirements Document (BRD)
-## Project: Library Management System
+An Employee table may contain EmployeeID, FirstName, Salary, and DepartmentID.
+Q6. What is the difference between Schema and Database Instance?
+Answer:
 
-**Project Type:** Transactional Database (OLTP)  
-**Project Scope:** Single Library  
-**Entities:** 4
+A schema defines the structure of a database, while an instance represents the actual data stored in the database at a specific moment.
 
----
+Example:
 
-## 1. Project Overview
+The Employee table structure is part of the schema.
 
-A library requires a database system to manage its books, physical book copies, registered members, and borrowing operations.
+The employees stored inside that table represent the database instance.
+Q7. What are Data Redundancy and Data Inconsistency?
+Answer:
 
-The system must allow the library to register new members, maintain its book catalog, track individual book copies, and record borrowing and return operations.
+Data redundancy means storing the same information multiple times.
 
-The main objective is to maintain accurate records of library activities and track the availability of physical book copies.
+Data inconsistency happens when duplicated information has different values in different places.
 
-## 2. Required Data
+Example:
 
-### 2.1 Members
+If a customer's address is stored in five different records, updating only four of them creates inconsistent data.
+Q8. What is Data Integrity?
+Answer:
 
-The system must maintain the following information for each registered member:
+Data integrity means maintaining accurate, valid, and consistent data throughout its lifecycle.
 
-| Attribute | Description |
-|---|---|
-| Member_ID | Unique member identification number |
-| First_Name | Member's first name |
-| Last_Name | Member's last name |
-| Email | Member's email address |
-| Phone | Member's phone number |
-| Registration_Date | Date the member registered |
+We can enforce data integrity using constraints such as Primary Key, Foreign Key, Unique, and Check constraints.
+Q9. What is an Entity Relationship Model?
+Answer:
 
-**Business Rules:**
-- Every member must have a unique Member_ID.
-- Email addresses must be unique.
-- A member can be registered even if they have never borrowed a book.
+An Entity Relationship Model is a conceptual representation of the data and the relationships between entities.
 
-### 2.2 Books
-
-The library must maintain a catalog of all books available in its collection.
-
-Each book record must contain:
-
-| Attribute | Description |
-|---|---|
-| Book_ID | Unique book identification number |
-| Title | Book title |
-| ISBN | International Standard Book Number |
-| Author | Book author |
-| Publication_Year | Year of publication |
-| Available_Copies | Number of currently available copies |
-
-**Business Rules:**
-- Every book must have a unique Book_ID.
-- ISBN must be unique.
-- Available_Copies cannot be negative.
-- A book can be registered even if it has never been borrowed.
-
-### 2.3 Borrowing
-
-The system must record every borrowing operation performed by a library member.
-
-Each borrowing record must contain:
-
-| Attribute | Description |
-|---|---|
-| Borrowing_ID | Unique borrowing identification number |
-| Borrowing_Date | Date the book was borrowed |
-| Due_Date | Expected return date |
-| Return_Date | Actual return date |
-
-**Business Rules:**
-- Every borrowing operation must have a unique Borrowing_ID.
-- The system must identify the member who borrowed the book.
-- The system must identify the specific physical copy being borrowed.
-- A member may borrow books on multiple occasions.
-- The actual return date must be recorded when the borrowed copy is returned.
-- Return_Date cannot be earlier than Borrowing_Date.
-- A physical copy cannot be borrowed again while it is already borrowed.
-
-### 2.4 Book Copies
-
-The library needs to track each physical copy of a book separately.
-
-Each physical copy must contain the following information:
-
-| Attribute | Description |
-|---|---|
-| Copy_ID | Unique identification number for the physical copy |
-| Copy_Status | Current status of the copy |
-| Acquisition_Date | Date the copy was acquired by the library |
-
-**Business Rules:**
-- Every physical copy must have a unique Copy_ID.
-- Each physical copy must belong to a specific book.
-- A book may have multiple physical copies.
-- Copy_Status must support the following values:
-  - Available
-  - Borrowed
-  - Damaged
-- Damaged copies cannot be borrowed.
-- A borrowed copy becomes available again after it is returned, provided it is not damaged.
-
-## 3. General Business Rules
-
-1. A member must be registered before borrowing a book.
-2. Every borrowing operation must be associated with an existing member.
-3. Every borrowing operation must identify one specific physical book copy.
-4. The library must preserve historical borrowing records after books are returned.
-5. The system must update the physical copy's status when it is borrowed or returned.
-6. The library must maintain the distinction between a book title and its individual physical copies.
-
-## 4. Project Scope
-
-**Included:**
-- Member Registration.
-- Book Catalog Management.
-- Physical Book Copy Management.
-- Borrowing Management.
-- Book Return Management.
-
-**Excluded:**
-- Financial Fines and Penalties.
-- Book Reservations.
-- Employee Management.
-- Multiple Library Branches.
-
----
-
-**End of Business Requirements Document.**
-
-[DATABASE ERD.drawio](https://github.com/user-attachments/files/34517886/DATABASE.ERD.drawio)
-
-
-<mxfile host="Electron">
-  <diagram name="Page-1" id="GWGypTb2kf2xozXeal3F">
-    <mxGraphModel dx="1514" dy="790" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-        <mxCell id="23JTafLmVhfkPfJm8UxH-10" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=1;entryDx=0;entryDy=0;" target="23JTafLmVhfkPfJm8UxH-6">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-14" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="23JTafLmVhfkPfJm8UxH-8">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-53" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="23JTafLmVhfkPfJm8UxH-55">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="620" y="460" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Members" vertex="1">
-          <mxGeometry height="60" width="114" x="370" y="315" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-3" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="&lt;br&gt;&lt;u&gt;Member_ID&lt;/u&gt;" vertex="1">
-          <mxGeometry height="50" width="100" x="364" y="230" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-4" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Email" vertex="1">
-          <mxGeometry height="50" width="90" x="250" y="230" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-5" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Phone_number" vertex="1">
-          <mxGeometry height="50" width="90" x="480" y="230" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-6" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="First_name" vertex="1">
-          <mxGeometry height="50" width="90" x="250" y="310" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-7" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Last_name" vertex="1">
-          <mxGeometry height="50" width="90" x="250" y="370" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-8" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Registration_Date&lt;/div&gt;" vertex="1">
-          <mxGeometry height="50" width="100" x="560" y="270" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-9" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.604;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" target="23JTafLmVhfkPfJm8UxH-3">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-11" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=0.996;entryY=0.648;entryDx=0;entryDy=0;entryPerimeter=0;" target="23JTafLmVhfkPfJm8UxH-7">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-12" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=0.684;entryY=0.936;entryDx=0;entryDy=0;entryPerimeter=0;" target="23JTafLmVhfkPfJm8UxH-4">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-13" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0.422;entryY=1.016;entryDx=0;entryDy=0;entryPerimeter=0;" target="23JTafLmVhfkPfJm8UxH-5">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-15" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=1;entryDx=0;entryDy=0;" target="23JTafLmVhfkPfJm8UxH-21">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-16" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1420" y="345.00000000000006" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-58" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="23JTafLmVhfkPfJm8UxH-59">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1327.5789473684208" y="600.0000000000002" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-17" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Books" vertex="1">
-          <mxGeometry height="60" width="114" x="1270" y="315.00000000000006" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-18" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="&lt;u&gt;Book_id&lt;/u&gt;" vertex="1">
-          <mxGeometry height="50" width="100" x="1270" y="231.8" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-19" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Title" vertex="1">
-          <mxGeometry height="50" width="90" x="1160" y="226.8" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-20" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="&lt;br&gt;ISBN&lt;br&gt;&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="50" width="90" x="1370" y="231.8" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-21" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Author" vertex="1">
-          <mxGeometry height="50" width="90" x="1150" y="310.00000000000006" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-22" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Publication_Year" vertex="1">
-          <mxGeometry height="50" width="90" x="1150" y="370.00000000000006" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-23" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="&lt;br&gt;Available_Copies&lt;br&gt;&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="50" width="100" x="1420" y="320.00000000000006" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-24" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.604;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1324.4" y="280.00000000000006" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-25" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=0.996;entryY=0.648;entryDx=0;entryDy=0;entryPerimeter=0;" target="23JTafLmVhfkPfJm8UxH-22">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-26" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=0.684;entryY=0.936;entryDx=0;entryDy=0;entryPerimeter=0;">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1211.5599999999997" y="276.80000000000024" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-27" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0.422;entryY=1.016;entryDx=0;entryDy=0;entryPerimeter=0;">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1417.98" y="280.80000000000024" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-28" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=1;entryDx=0;entryDy=0;" target="23JTafLmVhfkPfJm8UxH-34">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-66" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-30" style="edgeStyle=orthogonalEdgeStyle;shape=link;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="23JTafLmVhfkPfJm8UxH-55">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-77" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-30" style="edgeStyle=orthogonalEdgeStyle;shape=link;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="23JTafLmVhfkPfJm8UxH-62">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-30" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;h3&gt;Borrowing&lt;/h3&gt;" vertex="1">
-          <mxGeometry height="60" width="114" x="820" y="318.20000000000005" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-31" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="&lt;u&gt;Borrowing_ID&lt;/u&gt;" vertex="1">
-          <mxGeometry height="50" width="100" x="820" y="235.00000000000003" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-32" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Due_Date" vertex="1">
-          <mxGeometry height="50" width="90" x="710" y="230.00000000000003" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-33" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="&lt;div&gt;Borrowing_Date&lt;/div&gt;" vertex="1">
-          <mxGeometry height="50" width="90" x="920" y="235.00000000000003" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-34" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Return_Date" vertex="1">
-          <mxGeometry height="50" width="90" x="700" y="313.20000000000005" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-37" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.604;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="874.4000000000001" y="283.20000000000005" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-39" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=0.684;entryY=0.936;entryDx=0;entryDy=0;entryPerimeter=0;">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="761.5599999999997" y="280.0000000000002" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-40" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0.422;entryY=1.016;entryDx=0;entryDy=0;entryPerimeter=0;">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="967.98" y="284.0000000000002" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-41" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=1;entryDx=0;entryDy=0;" target="23JTafLmVhfkPfJm8UxH-45">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-61" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="23JTafLmVhfkPfJm8UxH-62">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="870" y="618.578947368421" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-73" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-42" style="edgeStyle=orthogonalEdgeStyle;shape=link;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="23JTafLmVhfkPfJm8UxH-59">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-42" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;h3&gt;Book_Copies&lt;/h3&gt;" vertex="1">
-          <mxGeometry height="60" width="114" x="1054" y="558.2" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-43" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Copy_id" vertex="1">
-          <mxGeometry height="50" width="100" x="1054" y="475" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-44" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;br&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Copy_Status&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;" vertex="1">
-          <mxGeometry height="50" width="90" x="944" y="470" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-45" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="&lt;br&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Acquisition_Date&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;br&gt;&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="50" width="90" x="920" y="540" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-46" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.604;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1108.4" y="523.2" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-47" edge="1" parent="1" source="23JTafLmVhfkPfJm8UxH-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=0.684;entryY=0.936;entryDx=0;entryDy=0;entryPerimeter=0;">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="995.5599999999997" y="520.0000000000002" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-55" parent="1" style="rhombus;whiteSpace=wrap;html=1;shapeInside=1;" value="Places" vertex="1">
-          <mxGeometry height="80" width="80" x="600" y="410" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-59" parent="1" style="rhombus;whiteSpace=wrap;html=1;shapeInside=1;" value="has&amp;nbsp;" vertex="1">
-          <mxGeometry height="80" width="80" x="1286.9989473684209" y="558.2000000000003" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-62" parent="1" style="rhombus;whiteSpace=wrap;html=1;shapeInside=1;" value="Borrowed" vertex="1">
-          <mxGeometry height="80" width="80" x="830" y="578.578947368421" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-67" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
-          <mxGeometry height="30" width="60" x="480" y="360" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-68" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="M" vertex="1">
-          <mxGeometry height="30" width="60" x="670" y="420" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-69" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
-          <mxGeometry height="30" width="60" x="1280" y="370" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-70" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="M" vertex="1">
-          <mxGeometry height="30" width="60" x="1170" y="570" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-74" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="1" vertex="1">
-          <mxGeometry height="30" width="60" x="1010" y="600" as="geometry" />
-        </mxCell>
-        <mxCell id="23JTafLmVhfkPfJm8UxH-76" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="M" vertex="1">
-          <mxGeometry height="30" width="60" x="880" y="390" as="geometry" />
-        </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
-</mxfile>
-
-
-# Mapping 
-1. Members
-
-PK = Member_ID
-
-Members(Member_ID, Email, Phone_Number, First_Name, Last_Name, Registration_Date)
-
-2. Books
-
-PK = Book_ID
-
-Books(Book_ID, Title, ISBN, Author, Publication_Year, Available_Copies)
-
-3. Borrowing
-
-PK = Borrowing_ID · FK = Member_ID
-
-Borrowing(Borrowing_ID, Member_ID, Due_Date, Borrowing_Date, Return_Date)
-
-4. Book_Copies
-
-PK = Copy_ID · FKs = Book_ID, Borrowing_ID
-
-Book_Copies(Copy_ID, Book_ID, Borrowing_ID, Copy_Status, Acquisition_Date)
+It helps us understand the database requirements before creating actual tables.
+
+Example:
+
+A university system may contain Students, Courses, and Departments.
+Q10. What is Cardinality?
+Answer:
+
+Cardinality defines how many records of one entity can be associated with records of another entity.
+
+There are three main relationship types:
+- One-to-One (1:1)
+- One-to-Many (1:M)
+- Many-to-Many (M:N)
+Example:
+
+One Department can have many Employees. This is a One-to-Many relationship.
+
+systemdesign.academy+1
+
+Section 2 — Keys and Constraints
+دي من أهم أجزاء الانترفيو، ولازم تكون قادر تشرحها بمثال من تصميم قاعدة بيانات، مش مجرد تعريف محفوظ.
+Q11. What is a Primary Key?
+Answer:
+
+A Primary Key is a column, or a combination of columns, that uniquely identifies each row in a table.
+
+It cannot contain NULL values or duplicate values.
+
+Example:
+
+EmployeeID in an Employee table.
+Q12. What is a Foreign Key?
+Answer:
+
+A Foreign Key is a column that creates a relationship between two tables.
+
+It references a Primary Key or a suitable Unique Key in another table and maintains referential integrity.
+
+Example:
+
+CustomerID in the Orders table references CustomerID in the Customers table.
+Q13. What is the difference between Primary Key and Foreign Key?
+Answer:
+
+A Primary Key uniquely identifies each row within its own table.
+
+A Foreign Key references a key in another table to establish a relationship between tables.
+Q14. What is a UNIQUE Constraint?
+Answer:
+
+A UNIQUE constraint ensures that duplicate values cannot be inserted into a column or combination of columns.
+
+Unlike a Primary Key, a table can have multiple UNIQUE constraints.
+Q15. What is the difference between PRIMARY KEY and UNIQUE?
+Answer:
+
+Both enforce uniqueness.
+
+However, a table can have only one Primary Key, while it can have multiple UNIQUE constraints.
+
+A Primary Key cannot contain NULL values.
+Q16. What is a Composite Primary Key?
+Answer:
+
+A Composite Primary Key consists of two or more columns used together to uniquely identify a record.
+
+Example:
+
+In an Enrollment table, we can use StudentID and CourseID together as a Composite Primary Key.
+
+Neither column necessarily needs to be unique by itself, but their combination must be unique.
+Q17. What are Candidate Key and Super Key?
+Answer:
+
+A Super Key is any combination of columns that uniquely identifies a row.
+
+A Candidate Key is a minimal Super Key, meaning no unnecessary column can be removed while maintaining uniqueness.
+
+The Primary Key is selected from the Candidate Keys.
+Q18. What is the difference between NOT NULL and CHECK Constraints?
+Answer:
+
+NOT NULL prevents a column from storing NULL values.
+
+CHECK validates whether a value satisfies a specific condition.
+
+Example:
+Salary DECIMAL(10,2) NOT NULL,
+CHECK (Salary > 0)
+
+
+This means Salary must have a value greater than zero.
+Q19. What is a DEFAULT Constraint?
+Answer:
+
+A DEFAULT constraint automatically provides a predefined value when no value is supplied for a column.
+
+Example:
+StockQuantity INT DEFAULT 0
+
+
+When an INSERT statement omits StockQuantity, SQL Server uses zero, provided the column is not explicitly given another value.
+Q20. What is the purpose of a Foreign Key?
+Answer:
+
+A Foreign Key maintains referential integrity between related tables.
+
+It prevents inserting a reference to a parent record that does not exist, and normally prevents deleting a referenced parent record while child records still depend on it.
+
+Microsoft Learn+1
+
+Section 3 — Normalization and Database Design
+دي منطقة مهمة جدًا بالنسبالك؛ لأنها بتختبر هل تقدر تصمم Database صح، مش بس تكتب SQL.
+Q21. What is Database Normalization?
+Answer:
+
+Normalization is the process of organizing data into multiple related tables to reduce data redundancy and avoid data anomalies.
+
+The main goal is to maintain data consistency and improve database design.
+Q22. What are Data Anomalies?
+Answer:
+
+Data anomalies are problems that occur when data is poorly organized or duplicated.
+
+There are three main types:
+1. Insertion Anomaly: We cannot insert certain information without inserting unrelated information.
+2. Update Anomaly: We need to update the same information in multiple places.
+3. Deletion Anomaly: Deleting one record accidentally removes other important information.
+Q23. What is First Normal Form (1NF)?
+Answer:
+
+A table is in First Normal Form when every column contains atomic values, and there are no repeating groups or multiple values in a single cell.
+
+Example:
+
+Incorrect:
+StudentID	PhoneNumbers
+1	0100, 0110
+
+Correct: Store phone numbers as separate records in an appropriate related table.
+Q24. What is Second Normal Form (2NF)?
+Answer:
+
+A table is in Second Normal Form when:
+- It is already in First Normal Form.
+- Every non-key attribute depends on the whole candidate key, not just part of a composite candidate key.
+This removes partial dependencies.
+
+Example:
+
+Suppose we have:
+
+Enrollment(StudentID, CourseID, StudentName, CourseName, Grade)
+
+The Primary Key is (StudentID, CourseID).
+
+StudentName depends only on StudentID, and CourseName depends only on CourseID.
+
+We should move these attributes to their respective tables.
+Q25. What is Third Normal Form (3NF)?
+Answer:
+
+A table is in Third Normal Form when:
+- It is already in Second Normal Form.
+- It has no transitive dependencies of non-key attributes on candidate keys.
+In simple words, non-key attributes should depend on the key, the whole key, and nothing but the key.
+
+Example:
+
+Employee(EmployeeID, DepartmentID, DepartmentName)
+
+DepartmentName depends on DepartmentID, not directly on EmployeeID.
+
+We should separate Department information into another table.
+Q26. What is a Functional Dependency?
+Answer:
+
+A Functional Dependency describes a relationship where one attribute determines another attribute.
+
+Example:
+
+EmployeeID → EmployeeName
+
+This means that EmployeeID determines the EmployeeName.
+
+If two records have the same EmployeeID, they must have the same EmployeeName.
+Q27. What is Denormalization?
+Answer:
+
+Denormalization is the process of intentionally adding redundant data to improve query performance.
+
+It is often used in reporting systems and data warehouses to reduce the number of joins required.
+
+Example:
+
+Storing CustomerName alongside an Order record instead of retrieving it from the Customers table every time.
+
+Interview note: Do not say denormalization is always better. It trades some storage and consistency complexity for potentially faster reads.
+
+Asuraa+1
+
+Section 4 — SQL Language and Commands
+Q28. What is SQL?
+Answer:
+
+SQL stands for Structured Query Language.
+
+It is a standard language used to communicate with relational databases to create, retrieve, manipulate, and manage data.
+Q29. What is the difference between SQL and SQL Server?
+Answer:
+
+SQL is a query language used to interact with relational databases.
+
+SQL Server is a Relational Database Management System developed by Microsoft that uses T-SQL, Microsoft's extension of SQL.
+Q30. What are the main SQL Command Categories?
+Answer:
+
+SQL commands are commonly divided into four main categories:
+Category	Meaning	Examples
+DDL	Data Definition Language	CREATE, ALTER, DROP
+DML	Data Manipulation Language	INSERT, UPDATE, DELETE
+DCL	Data Control Language	GRANT, REVOKE
+TCL	Transaction Control Language	COMMIT, ROLLBACK
+
+Some learning materials classify SELECT separately as DQL (Data Query Language), while other classifications include it in DML.
+Q31. What is the difference between DELETE, TRUNCATE, and DROP?
+Answer:
+- DELETE removes selected rows from a table and supports a WHERE condition.
+- TRUNCATE removes all rows from a table but keeps its structure.
+- DROP removes the entire table, including its structure.
+Important SQL Server details:
+- DELETE does not automatically reset an IDENTITY counter.
+- TRUNCATE resets IDENTITY to its original seed.
+- Both DELETE and TRUNCATE can be rolled back within an active SQL Server transaction.
+- TRUNCATE cannot be used on a table referenced by a Foreign Key constraint.
+
+Microsoft Learn+2
+Q32. What is the difference between CHAR and VARCHAR?
+Answer:
+
+CHAR is a fixed-length data type, while VARCHAR is a variable-length data type.
+
+Example:
+CHAR(10)
+VARCHAR(10)
+
+
+CHAR uses a fixed declared length, while VARCHAR stores variable-length character data up to the specified limit.
+Q33. What is IDENTITY in SQL Server?
+Answer:
+
+IDENTITY is a property that automatically generates sequential numeric values for a column.
+
+It accepts two main values:
+- Seed: The starting value.
+- Increment: The value added for each new identity value.
+Example:
+EmployeeID INT IDENTITY(1,1)
+
+
+The values normally start at 1 and increase by 1.
+
+Important: IDENTITY does not guarantee uniqueness by itself. We need a Primary Key or UNIQUE constraint when uniqueness is required.
+Q34. What is the difference between WHERE and HAVING?
+Answer:
+
+WHERE filters individual rows before grouping.
+
+HAVING filters groups after the GROUP BY operation.
+
+Example:
+SELECT Department, AVG(Salary)
+FROM Employees
+WHERE Salary > 3000
+GROUP BY Department
+HAVING AVG(Salary) > 5000;
+
+
+This query first filters employees, then groups them by department, and finally filters the groups based on their average salary.
+Q35. What is NULL in SQL?
+Answer:
+
+NULL represents a missing or unknown value.
+
+It is different from zero or an empty string.
+
+We use IS NULL or IS NOT NULL to check for NULL values.
+
+Example:
+SELECT *
+FROM Employees
+WHERE Salary IS NULL;
+
+
+We should not use Salary = NULL to test for NULL.
+Q36. What is the difference between COUNT(*) and COUNT(ColumnName)?
+Answer:
+
+COUNT(*) counts all rows in the result set, including rows containing NULL values.
+
+COUNT(ColumnName) counts only rows where that particular column is not NULL.
+
+Example:
+
+If a table has 10 rows and 3 NULL values in the Email column:
+- COUNT(*) returns 10.
+- COUNT(Email) returns 7.
+
+systemdesign.academy+2
+
+Section 5 — SQL Joins and Query Concepts
+Study after WHERE and GROUP BY
+Q37. What is a JOIN in SQL?
+Answer:
+
+A JOIN is used to combine data from two or more tables based on a related column between them.
+
+Example:
+
+We can JOIN Customers and Orders using CustomerID to retrieve customer information with their orders.
+Q38. What are the different types of JOINs?
+Answer:
+
+There are several types of SQL JOINs:
+JOIN	Description
+INNER JOIN	Returns matching rows from both tables.
+LEFT JOIN	Returns all rows from the left table and matching rows from the right table.
+RIGHT JOIN	Returns all rows from the right table and matching rows from the left table.
+FULL OUTER JOIN	Returns matching and non-matching rows from both tables.
+CROSS JOIN	Returns every possible combination of rows.
+SELF JOIN	Joins a table with itself.
+
+Q39. What is the difference between INNER JOIN and LEFT JOIN?
+Answer:
+
+INNER JOIN returns only records that have matching values in both tables.
+
+LEFT JOIN returns all records from the left table, even if there is no matching record in the right table.
+
+When no match exists, the right-side columns contain NULL.
+Q40. What is GROUP BY?
+Answer:
+
+GROUP BY is used to group rows that have the same values in specified columns.
+
+It is commonly used with aggregate functions such as COUNT, SUM, AVG, MIN, and MAX.
+
+Example:
+
+We can calculate the total salary for each department using GROUP BY.
+Q41. What are Aggregate Functions?
+Answer:
+
+Aggregate functions perform calculations on a set of rows and return a single result for each group.
+
+Common aggregate functions include:
+- COUNT: Counts records.
+- SUM: Calculates the total.
+- AVG: Calculates the average.
+- MIN: Returns the minimum value.
+- MAX: Returns the maximum value.
+Q42. What is the difference between UNION and UNION ALL?
+Answer:
+
+UNION combines the results of two queries and removes duplicate rows.
+
+UNION ALL combines the results and keeps duplicate rows.
+
+UNION ALL is usually faster because it does not need to remove duplicates.
+Q43. What is a Subquery?
+Answer:
+
+A subquery is a query written inside another SQL query.
+
+It is used to provide a result that the main query depends on.
+
+Example:
+
+Finding employees whose salaries are greater than the average salary.
+
+Section 6 — Transactions and ACID
+Q44. What is a Transaction?
+Answer:
+
+A transaction is a logical unit of work that consists of one or more SQL statements.
+
+It ensures that a group of operations can be committed together or rolled back when necessary.
+Q45. What are ACID Properties?
+Answer:
+
+ACID represents four important properties of database transactions:
+Property	Explanation
+Atomicity	All operations succeed or none of them are applied.
+Consistency	The transaction keeps the database within valid rules.
+Isolation	Concurrent transactions are controlled to prevent incorrect interference.
+Durability	Committed changes remain saved even after a system failure, subject to the database's durability guarantees.
+
+Q46. What is the difference between COMMIT and ROLLBACK?
+Answer:
+
+COMMIT permanently saves the changes made during a transaction.
+
+ROLLBACK cancels the uncommitted changes made during a transaction.
+
+Example:
+
+In a bank transfer, if money is deducted from one account but the second operation fails, ROLLBACK can cancel the deduction.
+Q47. What is a SAVEPOINT?
+Answer:
+
+A SAVEPOINT marks a specific point inside a transaction.
+
+It allows us to roll back part of a transaction without necessarily canceling the entire transaction.
+
+Note: In SQL Server, the equivalent command is SAVE TRANSACTION.
+
+Section 7 — Database Performance and Data Engineering Concepts
+Later stage — don't study these deeply yet
+Q48. What is an Index in a Database?
+Answer:
+
+An index is a data structure that helps the database retrieve records faster without scanning the entire table in many cases.
+
+It improves read performance but requires additional storage and can slow down INSERT, UPDATE, and DELETE operations because the index must also be maintained.
+
+Example:
+
+An index on EmployeeID can help retrieve an employee faster when searching by EmployeeID.
+Q49. What is the difference between Clustered and Non-Clustered Indexes?
+Answer:
+
+A clustered index defines how the table's data rows are organized by the index key.
+
+A non-clustered index is a separate structure that stores indexed values and row references.
+
+A table can have only one clustered index, but it can have multiple non-clustered indexes.
+Q50. What is the difference between OLTP and OLAP?
+Answer:
+
+OLTP stands for Online Transaction Processing.
+
+It is designed to handle daily business operations such as inserting orders, updating customer information, and processing payments.
+
+OLAP stands for Online Analytical Processing.
+
+It is designed to analyze large amounts of historical data and support business reporting and decision-making.
+
+Example:
+- OLTP: A customer places an order.
+- OLAP: A company analyzes total sales for the last three yea
